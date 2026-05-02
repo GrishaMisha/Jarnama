@@ -12,10 +12,10 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-
     <!-- Навигация -->
     <nav class="bg-white shadow-md p-4 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
+    </nav>
+ <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold text-blue-600" id="logo">Qazaq Ads</h1>
             <div class="flex items-center gap-4">
                 <button onclick="toggleLang()" id="langBtn" class="bg-gray-200 px-3 py-1 rounded text-sm font-medium">KZ</button>
@@ -25,8 +25,12 @@
                 <button onclick="checkAuthAndOpenPost()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" data-i18n="addAd">Подать объявление</button>
             </div>
         </div>
-    </nav>
-
+        <section class="container mx-auto mt-6 p-4">
+  <h2 class="text-xl font-bold mb-4">Категории</h2>
+  <div id="categories-container" class="flex flex-wrap gap-4">
+    <p>Загрузка категорий...</p>
+  </div>
+</section>
     <!-- Фильтры -->
     <header class="container mx-auto mt-6 p-4 bg-white rounded-xl shadow-sm">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
