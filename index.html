@@ -28,16 +28,89 @@
     <!-- Фильтры -->
     <header class="container mx-auto mt-6 p-4 bg-white rounded-xl shadow-sm">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <select id="filterRegion" class="border p-2 rounded w-full">
-                <option value="" data-i18n="selectRegion">Область (Весь Казахстан)</option>
-                <option value="Karaganda">Карагандинская область</option>
-                <option value="Astana">г. Астана</option>
-                <option value="Almaty">г. Балхаш</option>
-                <option value="Kokshetau">г. Кокшетау</option>
-                <option value="Semipalatinsk">г. Семипалатинск</option>
-                <option value="Taldykorgan">г. Талдыкорган</option>
-            </select>
-            
+            <!-- Выбор области -->
+        <select id="filterRegion" class="border p-2 rounded w-full bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+            <option value="">Весь Казахстан (Выберите область)</option>
+            <option value="cities">Города республиканского значения</option>
+            <option value="abay">Область Абай</option>
+            <option value="akmola">Акмолинская область</option>
+            <option value="aktobe">Актюбинская область</option>
+            <option value="almaty_reg">Алматинская область</option>
+            <option value="atyrau">Атырауская область</option>
+            <option value="west_kz">Западно-Казахстанская область</option>
+            <option value="zhambyl">Жамбылская область</option>
+            <option value="zhetysu">Жетысуская область</option>
+            <option value="karaganda">Карагандинская область</option>
+            <option value="kostanay">Костанайская область</option>
+            <option value="kyzylorda">Кызылординская область</option>
+            <option value="mangystau">Мангистауская область</option>
+            <option value="pavlodar">Павлодарская область</option>
+            <option value="north_kz">Северо-Казахстанская область</option>
+            <option value="turkistan">Туркестанская область</option>
+            <option value="ulytau">Улытауская область</option>
+            <option value="east_kz">Восточно-Казахстанская область</option>
+        </select>
+            <!-- Динамический список городов -->
+        <select id="filterCity" class="border p-2 rounded w-full bg-gray-50 disabled:opacity-50" disabled>
+            <option value="">Сначала выберите область</option>
+        </select>
+    </div>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const regionSelect = document.getElementById('filterRegion');
+    const citySelect = document.getElementById('filterCity');
+
+    const locationData = {
+        'cities': ['Астана', 'Алматы', 'Шымкент'],
+        'abay': ['Семей', 'Курчатов', 'Аягоз'],
+        'akmola': ['Кокшетау', 'Степногорск', 'Щучинск', 'Акколь'],
+        'aktobe': ['Актобе', 'Хромтау', 'Кандыагаш'],
+        'almaty_reg': ['Конаев', 'Каскелен', 'Талгар', 'Есик'],
+        'atyrau': ['Атырау', 'Кульсары'],
+        'west_kz': ['Уральск', 'Аксай'],
+        'zhambyl': ['Тараз', 'Шу', 'Каратау'],
+        'zhetysu': ['Талдыкорган', 'Текели', 'Ушарал'],
+        'karaganda': ['Караганда', 'Темиртау', 'Балхаш', 'Сарань', 'Шахтинск'],
+        'kostanay': ['Костанай', 'Рудный', 'Аркалык', 'Житикара'],
+        'kyzylorda': ['Кызылорда', 'Байконур'],
+        'mangystau': ['Актау', 'Жанаозен'],
+        'pavlodar': ['Павлодар', 'Экибастуз', 'Аксу'],
+        'north_kz': ['Петропавловск', 'Тайынша'],
+        'turkistan': ['Туркестан', 'Кентау', 'Арыс', 'Сарыагаш'],
+        'ulytau': ['Жезказган', 'Сатпаев', 'Каражал'],
+        'east_kz': ['Усть-Каменогорск', 'Риддер', 'Алтай']
+    };
+
+    regionSelect.addEventListener('change', function() {
+        const val = this.value;
+        
+        // Очистка и сброс
+        citySelect.innerHTML = '';
+        
+        if (!val) {
+            citySelect.disabled = true;
+            citySelect.innerHTML = '<option value="">Сначала выберите область</option>';
+            return;
+        }
+
+        // Активация и наполнение
+        citySelect.disabled = false;
+        const defaultOpt = document.createElement('option');
+        defaultOpt.textContent = 'Все города этой области';
+        defaultOpt.value = 'all';
+        citySelect.appendChild(defaultOpt);
+
+        locationData[val].forEach(city => {
+            const opt = document.createElement('option');
+            opt.value = city;
+            opt.textContent = city;
+            citySelect.appendChild(opt);
+        });
+    });
+});
+</script>
             <select id="filterCategory" class="border p-2 rounded w-full">
                 <option value="" data-i18n="allCats">Все категории</option>
                 <option value="buy" data-i18n="catBuy">Куплю</option>
